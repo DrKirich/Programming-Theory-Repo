@@ -3,6 +3,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private float speed = 10;
+    private float xRange = 8;
 
     private void Update()
     {
@@ -11,6 +12,8 @@ public class Player : MonoBehaviour
 
         if (!GameManager.Instance.isGameActive)
             Die();
+
+        KeepInBounds();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -36,5 +39,12 @@ public class Player : MonoBehaviour
     {
         GameManager.Instance.GameOver();
         Destroy(gameObject);
+    }
+    private void KeepInBounds()
+    {
+        if (transform.position.x > xRange)
+            transform.position = new Vector3(xRange, transform.position.y, transform.position.z);
+        else if (transform.position.x < -xRange)
+            transform.position = new Vector3(-xRange, transform.position.y, transform.position.z);
     }
 }
