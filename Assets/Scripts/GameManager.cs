@@ -12,8 +12,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
     private float xRange = 8;
     private float yPosition = 7;
-    private float spawnWaitTime = 1.5f;
-    private bool isGameActive = true;
+    private float spawnWaitTime = 2;
+    public bool isGameActive = true;
     private int score;
 
     public Material[] Materials // Encapsulation
@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         isGameActive = false;
-        gameOverPanel.SetActive(false);
+        gameOverPanel.SetActive(true);
     }
 
     private IEnumerator SpawnStuff()

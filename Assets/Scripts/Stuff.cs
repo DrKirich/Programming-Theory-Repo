@@ -4,6 +4,7 @@ public enum StuffTypes { Good, Bad }
 public class Stuff : MonoBehaviour
 {
     [SerializeField] protected StuffTypes stuffType;
+    protected float drag = 1;
     protected Material[] materials;
 
     public StuffTypes StuffType // Encapsulation
@@ -11,9 +12,10 @@ public class Stuff : MonoBehaviour
         get { return stuffType; }
     }
 
-    protected void Start()
+    protected virtual void Start()
     {
         materials = GameManager.Instance.Materials;
+        GetComponent<Rigidbody>().drag = drag;
     }
 
     protected virtual void OnCollisionEnter(Collision collision)
@@ -22,8 +24,8 @@ public class Stuff : MonoBehaviour
         {
             if (stuffType == StuffTypes.Good)
                 GameManager.Instance.GameOver();
-            else
-                Destroy(gameObject);
+
+            Destroy(gameObject);
         }
     }
 }

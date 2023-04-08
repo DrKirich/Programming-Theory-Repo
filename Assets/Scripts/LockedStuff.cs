@@ -2,11 +2,17 @@ using UnityEngine;
 
 public class LockedStuff : Stuff // Inheritance
 {
-    private bool isLocked = true;
+    public bool IsLocked { get; private set; } // Encapsulation
+
+    protected override void Start() // Polymorphism
+    {
+        IsLocked = true;
+        base.Start();
+    }
 
     protected override void OnCollisionEnter(Collision collision) // Polymorphism
     {
-        if (collision.gameObject.CompareTag("Ground") && isLocked)
+        if (collision.gameObject.CompareTag("Ground") && IsLocked)
             UnlockStuff();
         else
             base.OnCollisionEnter(collision);
@@ -14,7 +20,7 @@ public class LockedStuff : Stuff // Inheritance
 
     private void UnlockStuff() // Abstraction
     {
-        isLocked = false;
-        GetComponent<Material>().color = materials[(int)stuffType].color;
+        IsLocked = false;
+        GetComponent<Renderer>().material = materials[(int)stuffType];
     }
 }
